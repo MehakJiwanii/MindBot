@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -41,23 +40,29 @@ class _ScreenTopState extends State<ScreenTop> {
             padding: const EdgeInsets.only(left: 12.0),
             child: Row(
               children: [
-                Text(nameValue.capitalizeFirst.toString(),
+                Flexible(
+                  child: Text(
+                    nameValue.capitalizeFirst.toString(),
                     style: GoogleFonts.epilogue(
                       color: Color(0xFF371B34),
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
                       height: 0,
-                    )),
-                Text("'s Space ",
-                    style: GoogleFonts.epilogue(
-                      color: Color(0xFF371B34),
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      height: 0,
-                    )),
-                SizedBox(
-                  width: 160,
+                    ),
+                  ),
                 ),
+                Text(
+                  "'s Space ",
+                  style: GoogleFonts.epilogue(
+                    color: Color(0xFF371B34),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    height: 0,
+                  ),
+                ),
+                Expanded(
+                  child: SizedBox(),
+                ), // To take remaining space
                 Padding(
                   padding: const EdgeInsets.only(left: 20.0),
                   child: CircleAvatar(

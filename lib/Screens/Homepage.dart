@@ -19,8 +19,7 @@ class _HomepageState extends State<Homepage> {
       backgroundColor: Colors.white,
       body: Center(
         child: Column(children: [
-
-       Stack(
+          Stack(
             children: [SvgPicture.asset('Assets/Images/Homepage.svg')],
           ),
           Row(
@@ -100,31 +99,6 @@ class _HomepageState extends State<Homepage> {
               ),
             ],
           ),
-          // SizedBox(
-          //   height: 25,
-          // ),
-          // ElevatedButton(
-          //   style: ElevatedButton.styleFrom(
-          //       elevation: 0, backgroundColor: Colors.white),
-          //   onPressed: () {
-          //     Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //           builder: (context) => GuestPage(),
-          //         ));
-          //   },
-          //   child: Text(
-          //     'or continue as a guest',
-          //     textAlign: TextAlign.center,
-          //     style: GoogleFonts.poppins(
-          //       color: Color(0xFF353A48),
-          //       fontSize: 16,
-          //       fontWeight: FontWeight.w600,
-          //       decoration: TextDecoration.underline,
-          //       height: 0,
-          //     ),
-          //   ),
-          // )
         ]),
       ),
     );

@@ -13,7 +13,20 @@ class Schizophreni extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: () async {
+      // Navigate to the NavbarScreen when the back button is pressed
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => NavBar(
+              displayName: '',
+              email: '',
+            )),
+      );
+      return false; // Prevents default behavior (popping the route)
+    },
+      child: Scaffold(
 
         body: Column(
           children: [
@@ -138,6 +151,8 @@ class Schizophreni extends StatelessWidget {
                   )),
             ),
           ],
-        ));
+        )
+      )
+    );
   }
 }

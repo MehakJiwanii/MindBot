@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
 class MaryamHanif extends StatefulWidget {
   const MaryamHanif({super.key});
@@ -66,13 +67,20 @@ class _MaryamHanifState extends State<MaryamHanif> {
                 width: 100,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
+                        backgroundColor: const Color.fromARGB(255, 117, 99, 99),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15))),
-                    onPressed: () {},
-                    child: Text(
-                      'Contact',
-                      style: GoogleFonts.montserrat(color: Colors.white),
+                    onPressed: () {
+                      FlutterPhoneDirectCaller.callNumber('+923353966816');
+                    },
+                    child: GestureDetector(
+                      onTap: () {
+                        FlutterPhoneDirectCaller.callNumber('+923353966816');
+                      },
+                      child: Text(
+                        'Contact',
+                        style: GoogleFonts.montserrat(color: Colors.white),
+                      ),
                     )),
               )
             ],

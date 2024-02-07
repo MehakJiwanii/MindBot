@@ -1,4 +1,5 @@
 import 'package:chatbot/Screens/AssessmentWidget.dart';
+import 'package:chatbot/Screens/Emotions/Calm/Calmrec.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -66,7 +67,7 @@ class _CalmState extends State<Calm> {
                 height: 25,
               ),
               Container(
-                child: Recommendation(),
+                child: calmrec(),
               ),
             ],
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
 class RabiaTanveer extends StatefulWidget {
   const RabiaTanveer({super.key});
@@ -69,7 +70,9 @@ class _RabiaTanveerState extends State<RabiaTanveer> {
                         backgroundColor: Colors.black,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15))),
-                    onPressed: () {},
+                    onPressed: () {
+                      FlutterPhoneDirectCaller.callNumber('+923353966816');
+                    },
                     child: Text(
                       'Contact',
                       style: GoogleFonts.montserrat(color: Colors.white),

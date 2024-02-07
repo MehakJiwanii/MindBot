@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EhsanZafar extends StatefulWidget {
   const EhsanZafar({super.key});
@@ -70,9 +72,15 @@ class _EhsanZafarState extends State<EhsanZafar> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15))),
                     onPressed: () {},
-                    child: Text(
-                      'Contact',
-                      style: GoogleFonts.montserrat(color: Colors.white),
+                    child: GestureDetector(
+                      onTap: () {
+                        FlutterPhoneDirectCaller.callNumber('+923353966816');
+
+                      },
+                      child: Text(
+                        'Contact',
+                        style: GoogleFonts.montserrat(color: Colors.white),
+                      ),
                     )),
               )
             ],

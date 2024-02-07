@@ -1,6 +1,7 @@
+import 'package:chatbot/Screens/ForgotPassword.dart';
 import 'package:chatbot/Screens/NavBar.dart';
 import 'package:chatbot/Screens/SignupPage.dart';
-import 'package:chatbot/Screens/widgets/or.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -143,26 +144,51 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(18.0),
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 20,
+                    child: Column(children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        controller: emailController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please enter email address";
+                          } else if (!value.contains("@")) {
+                            return "Please Enter Valid Email";
+                          } else if (!value.contains(".com")) {
+                            return "Please Enter Valid Email";
+                          }
+                          return null;
+                        },
+                        textInputAction: TextInputAction.done,
+                        decoration: InputDecoration(
+                          hintText: "Email",
+                          hintStyle: GoogleFonts.montserrat(),
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              borderSide: BorderSide(color: Color(0xFF343A48))),
+                          prefixIcon: Icon(
+                            Icons.email,
+                          ),
                         ),
-                        TextFormField(
-                          controller: emailController,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Please enter email address";
-                            } else if (!value.contains("@")) {
-                              return "Please Enter Valid Email";
-                            } else if (!value.contains(".com")) {
-                              return "Please Enter Valid Email";
-                            }
-                            return null;
-                          },
-                          textInputAction: TextInputAction.done,
-                          decoration: InputDecoration(
-                            hintText: "Email",
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        controller: passwordController,
+                        obscureText: passToggle,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please enter Password";
+                          } else if (value.length < 6) {
+                            return "Please enter at least 6 digit";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            hintText: " Password",
                             hintStyle: GoogleFonts.montserrat(),
                             border: OutlineInputBorder(
                                 borderRadius:
@@ -170,98 +196,82 @@ class _LoginScreenState extends State<LoginScreen> {
                                 borderSide:
                                     BorderSide(color: Color(0xFF343A48))),
                             prefixIcon: Icon(
-                              Icons.email,
+                              Icons.lock,
                             ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        TextFormField(
-                          controller: passwordController,
-                          obscureText: passToggle,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Please enter Password";
-                            } else if (value.length < 6) {
-                              return "Please enter at least 6 digit";
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                              hintText: " Password",
-                              hintStyle: GoogleFonts.montserrat(),
-                              border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
-                                  borderSide:
-                                      BorderSide(color: Color(0xFF343A48))),
-                              prefixIcon: Icon(
-                                Icons.lock,
-                              ),
-                              suffixIcon: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    passToggle = !passToggle;
-                                  });
-                                },
-                                child: Icon(
-                                  passToggle
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.light
-                                      ? Colors.blue
-                                      : Colors.white,
-                                ),
-                              )),
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Container(
-                          width: 357,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xFF343A48)),
-                              onPressed: () async {
-                                if (_formKey.currentState!.validate()) {
-                                  var pref =
-                                      await SharedPreferences.getInstance();
-                                  pref.setBool("Login", true);
-
-                                  setState(() {
-                                    email = emailController.text;
-                                    password = passwordController.text;
-                                  });
-
-                                  userLogin();
-                                } else {
-                                  Fluttertoast.showToast(
-                                      msg: "Please fill all detail",
-                                      backgroundColor: Colors.redAccent);
-                                }
+                            suffixIcon: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  passToggle = !passToggle;
+                                });
                               },
-                              child: Text(
-                                'Login',
-                                style: GoogleFonts.montserrat(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500),
-                              )),
+                              child: Icon(
+                                passToggle
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.light
+                                    ? Colors.blue
+                                    : Colors.white,
+                              ),
+                            )),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        width: 357,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
-                        const SizedBox(
-                          height: 30,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xFF343A48)),
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                var pref =
+                                    await SharedPreferences.getInstance();
+                                pref.setBool("Login", true);
+
+                                setState(() {
+                                  email = emailController.text;
+                                  password = passwordController.text;
+                                });
+
+                                userLogin();
+                              } else {
+                                Fluttertoast.showToast(
+                                    msg: "Please fill all detail",
+                                    backgroundColor: Colors.redAccent);
+                              }
+                            },
+                            child: Text(
+                              'Login',
+                              style: GoogleFonts.montserrat(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500),
+                            )),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ForgotPassword()));
+                        },
+                        child: Text(
+                          "Forgot Your Password?",
+                          style: GoogleFonts.montserrat(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black,
+                          ),
                         ),
-                        // Container(
-                        //   child: or(),
-                        // )
-                      ],
-                    ),
+                      )
+                    ]),
                   )
                 ],
               ),

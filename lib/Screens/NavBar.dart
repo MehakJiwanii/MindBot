@@ -1,7 +1,10 @@
 import 'package:chatbot/Screens/ChatScreen.dart';
+import 'package:chatbot/Screens/Chatbot.dart';
 import 'package:chatbot/Screens/Library/Library.dart';
-import 'package:chatbot/Screens/Profile/ProfileInfo.dart';
+import 'package:chatbot/Screens/Profile/ProfileScreen.dart';
 import 'package:chatbot/Screens/Profile/profile.dart';
+import 'package:chatbot/Screens/SelectBot.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:chatbot/Screens/welcome.dart';
 
@@ -25,7 +28,7 @@ class NavBar extends StatefulWidget {
 
 class _NavBarState extends State<NavBar> {
   int currentPageIndex = 0;
-  final screens = [Welcome(), Library(), ChatScreen(), ProfileScreen()];
+  final screens = [Welcome(), Library(), CombinedChatScreen()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,16 +42,13 @@ class _NavBarState extends State<NavBar> {
               selectedIndex: currentPageIndex,
               destinations: [
                 NavigationDestination(
-                  icon: Icon(
-                    Icons.home,
-                    size: 35,
+                  icon: FaIcon(
+                    FontAwesomeIcons.house,
+                    size: 30,
                     color: Colors.grey,
                   ),
-                  selectedIcon: Icon(
-                    Icons.home,
-                    size: 35,
-                    color: Colors.black,
-                  ),
+                  selectedIcon: FaIcon(FontAwesomeIcons.house,
+                      size: 30, color: Color(0xFF343A48)),
                   label: '',
                 ),
                 NavigationDestination(
@@ -58,11 +58,8 @@ class _NavBarState extends State<NavBar> {
                     color: Colors.grey,
                   ),
                   label: '',
-                  selectedIcon: Icon(
-                    Icons.library_books,
-                    size: 35,
-                    color: Colors.black,
-                  ),
+                  selectedIcon: Icon(Icons.library_books,
+                      size: 35, color: Color(0xFF343A48)),
                 ),
                 NavigationDestination(
                   icon: Icon(
@@ -71,24 +68,18 @@ class _NavBarState extends State<NavBar> {
                     color: Colors.grey,
                   ),
                   label: '',
-                  selectedIcon: Icon(
-                    Icons.chat_bubble_outline,
-                    size: 35,
-                    color: Colors.black,
-                  ),
+                  selectedIcon: Icon(Icons.chat_bubble_outline,
+                      size: 29, color: Color(0xFF343A48)),
                 ),
                 NavigationDestination(
-                  icon: Icon(
-                    Icons.person_2_outlined,
-                    size: 35,
+                  icon: FaIcon(
+                    FontAwesomeIcons.user,
+                    size: 29,
                     color: Colors.grey,
                   ),
                   label: '',
-                  selectedIcon: Icon(
-                    Icons.people_alt,
-                    size: 35,
-                    color: Colors.black,
-                  ),
+                  selectedIcon: FaIcon(FontAwesomeIcons.user,
+                      size: 30, color: Color(0xFF343A48)),
                 ),
               ]),
         ),
@@ -96,3 +87,4 @@ class _NavBarState extends State<NavBar> {
         body: screens[currentPageIndex]);
   }
 }
+// Uri.parse('http://10.0.2.2:5000/chat?message=$message'),

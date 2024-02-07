@@ -10,6 +10,7 @@ class Welcomeqoute extends StatelessWidget {
       width: 325,
       height: 90,
       decoration: ShapeDecoration(
+        
         color: Color(0xFFF8F6F6),
         shape: RoundedRectangleBorder(
           side: BorderSide(

@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:chatbot/Screens/widgets/Screentop.dart';
 
-import 'package:chatbot/Screens/widgets/sadreco.dart';
-import 'package:chatbot/Screens/widgets/sadwidget.dart';
+import 'package:chatbot/Screens/Emotions/Sad/sadreco.dart';
+import 'package:chatbot/Screens/Emotions/Sad/sadwidget.dart';
 
 class Sad extends StatefulWidget {
   const Sad({super.key});
@@ -59,19 +59,19 @@ class _SadState extends State<Sad> {
             ),
           ),
           SizedBox(
-            height: 25,
+            height: 35,
           ),
           Container(
             child: AssessmentWidget(),
           ),
           SizedBox(
-            height: 25,
+            height: 30,
           ),
           Container(
             child: Sadrecon(),
           ),
           SizedBox(
-            height: 20,
+            height: 30,
           ),
           Container(
             child: Sadwidget(),

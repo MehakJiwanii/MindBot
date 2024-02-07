@@ -1,6 +1,9 @@
+import 'package:chatbot/Screens/NavBar.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -13,28 +16,74 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFF343A48),
-        title: Text('ChatBot'),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: messages.length,
-              itemBuilder: (context, index) => messages[index],
+    return WillPopScope(
+      onWillPop: () async {
+        // Navigate to the NavbarScreen when the back button is pressed
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => NavBar(
+                    displayName: '',
+                    email: '',
+                  )),
+        );
+        return false; // Prevents default behavior (popping the route)
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false, // Remove default back arrow icon
+          backgroundColor: Color(0xFF343A48),
+          title: Text('ChatBot'),
+          centerTitle: true,
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount: messages.length,
+                itemBuilder: (context, index) => messages[index],
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: GradientBoxBorder(
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: GradientBoxBorder(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              Color(0xFFF69170),
+                              Color(0xFF7D96E6),
+                            ],
+                          ),
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                      ),
+                      child: TextField(
+                        controller: _messageController,
+                        decoration: InputDecoration(
+                          hintText: 'Type a message...',
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 8.0),
+                  MaterialButton(
+                    onPressed: () {
+                      sendMessage();
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(80.0),
+                    ),
+                    padding: EdgeInsets.all(0.0),
+                    child: Ink(
+                      decoration: BoxDecoration(
                         gradient: LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
@@ -43,57 +92,26 @@ class _ChatScreenState extends State<ChatScreen> {
                             Color(0xFF7D96E6),
                           ],
                         ),
+                        borderRadius: BorderRadius.all(Radius.circular(50.0)),
                       ),
-                      borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                    ),
-                    child: TextField(
-                      controller: _messageController,
-                      decoration: InputDecoration(
-                        hintText: 'Type a message...',
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 20),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(width: 8.0),
-                MaterialButton(
-                  onPressed: () {
-                    sendMessage();
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(80.0),
-                  ),
-                  padding: EdgeInsets.all(0.0),
-                  child: Ink(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xFFF69170),
-                          Color(0xFF7D96E6),
-                        ],
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                    ),
-                    child: Container(
-                      constraints: BoxConstraints(
-                        minWidth: 85.0,
-                        minHeight: 42.0,
-                      ),
-                      alignment: Alignment.center,
-                      child: Icon(
-                        Icons.send,
-                        color: Colors.white,
+                      child: Container(
+                        constraints: BoxConstraints(
+                          minWidth: 85.0,
+                          minHeight: 42.0,
+                        ),
+                        alignment: Alignment.center,
+                        child: Icon(
+                          Icons.send,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -162,12 +180,20 @@ class ChatMessage extends StatelessWidget {
 }
 
 Future<String> sendMessageToFlask(String message) async {
-  final response = await http.get(
-    Uri.parse('http://10.0.2.2:5000/chat?message=$message'),
+  final response = await http.post(
+    Uri.parse('https://api.cohere.ai/v1/chat'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      "Authorization": "Bearer fhjc1GUJR2j8IG89k8btRQcHt2ex5bVpDw9h7F9P"
+    },
+    body: jsonEncode(<String, String>{
+      'message': message,
+    }),
   );
 
   if (response.statusCode == 200) {
-    return response.body;
+    print(jsonDecode(response.body)['text']);
+    return jsonDecode(response.body)['text'];
   } else {
     throw Exception('Failed to load response');
   }

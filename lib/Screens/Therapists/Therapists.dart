@@ -44,7 +44,7 @@ class _TherapistsState extends State<Therapists> {
                 width: 240,
                 height: 19,
                 child: Text(
-                  'Based on your Needs & Location',
+                  'Your Mental Health care Experts',
                   style: GoogleFonts.workSans(
                     color: Color(0xFFA1A1A1),
                     fontSize: 15,
@@ -145,6 +145,33 @@ class _TherapistsState extends State<Therapists> {
                     )
                   ],
                 ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              SizedBox(
+                child: MaryamHanif(),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              SizedBox(
+                child: RabiaTanveer(),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              SizedBox(
+                child: UzmaZahoor(),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              SizedBox(
+                child: EhsanZafar(),
+              ),
+              SizedBox(
+                height: 30,
               ),
             ],
           ),

@@ -1,4 +1,4 @@
-import 'package:chatbot/Screens/Profile/ProfileInfo.dart';
+import 'package:chatbot/Screens/Profile/ProfileScreen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileTop extends StatelessWidget {

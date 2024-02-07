@@ -1,6 +1,7 @@
 import 'package:chatbot/Screens/NavBar.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AllSet extends StatefulWidget {
@@ -33,6 +34,10 @@ class _AllSetState extends State<AllSet> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SvgPicture.asset(
+              'Assets/Images/Allset.svg',
+              height: 400,
+            ),
             Center(
               child: Text(
                 "You are All",

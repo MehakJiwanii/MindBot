@@ -53,7 +53,7 @@ class Today extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 12.0),
                         child: Text(
-                          'Free group therapy sessions for Trauma,Depression & mental Wellness.',
+                          'To Book therapy sessions for Trauma,Depression & mental Wellness.',
                           style: GoogleFonts.epilogue(
                             color: Color(0xFF573926),
                             fontSize: 14,

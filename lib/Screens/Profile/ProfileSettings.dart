@@ -1,5 +1,5 @@
 import 'package:chatbot/Screens/Homepage.dart';
-import 'package:chatbot/Screens/Profile/ProfileInfo.dart';
+import 'package:chatbot/Screens/Profile/ProfileScreen.dart';
 import 'package:chatbot/Screens/Profile/profile.dart';
 import 'package:chatbot/Screens/Profile/savedbenificiery.dart';
 import 'package:firebase_auth/firebase_auth.dart';
